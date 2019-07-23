@@ -1,0 +1,22 @@
+{
+  "name": "tonext",
+  "version": "1.0.0",
+  "description": "前端页服务端渲染",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.2.1",
+    "@material-ui/styles": "^4.2.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
