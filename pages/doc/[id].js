@@ -7,6 +7,12 @@ import PropTypes from 'prop-types';
 
 import dynamic from 'next/dynamic';
 const LeftListTRee = dynamic(() => import('../../components/LeftListTRee'), { ssr: false });
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import Link from 'next/link'
+import MuiLink from '@material-ui/core/Link';
+const MoreData = dynamic(() => import('../../components/MoreData'), { ssr: false });
 
 const styles = theme => ({
   contentLayout: {
@@ -50,6 +56,59 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       padding: '0em 0em',
     },
+  },
+  collectionItem:{
+    marginTop:'20px',
+    padding: '10px 0px',
+    borderBottom: '1px solid #EDEDED',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0em 1em',
+      borderBottom: '0px solid #EDEDED',
+    },
+  },
+  itemH2:{
+    fontWeight: 'bold',
+    // color:'coral',
+    fontWeight: '600',
+  },
+  itemP:{
+    marginTop: '10px !important',
+    marginBottom: '10px !important',
+    color: '#818181 !important',
+    lineHeight: '23px !important',
+    fontSize: '13px !important',
+    fontWeight: '400',
+  },
+  collectionHeader:{
+    height:'200px',
+    backgroundColor:'coral'
+  },
+  collectionInfo:{
+    flex: 1,
+    display:'flex',
+    color: '#ffffff !important',
+    width: '100%',
+    margin: 'auto',
+    padding: '1em 2em',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0em 1em',
+    },
+  },
+  collectionImg: {
+    margin: '20px auto',
+    width: 80,
+    height: 80,
+    backgroundColor:'#000000',
+  },
+  imgItem:{
+    "width": "100%",
+    "height": "250px",
+    "overflow": "hidden",
+    marginTop: '10px !important',
+    marginBottom: '10px !important',
+  },
+  toolbarLink:{
+    whiteSpace:'normal !important'
   }
 
 });
@@ -57,45 +116,91 @@ const styles = theme => ({
 class Post extends React.Component {
   static async getInitialProps(context) {
     const { id } = context.query;
-    const res = await fetch(`http://127.0.0.1:8000/api/articlessr/${id}`);
-    const show = await res.json();
-    console.log(`Fetched show: ${show.title}`);
-    return { show };
+    const limit = 3;
+    const resArticle = await fetch(`http://127.0.0.1:8000/api/articlessr/?collection=${id}&limit=${limit}`);
+    const resCollection= await fetch(`http://127.0.0.1:8000/api/collection/${id}`);
+    const ArticleList = await resArticle.json();
+    const collection = await resCollection.json();
+    console.log(`Fetched show`, ArticleList);
+    return {
+          id:id,
+          offset:limit, //起点序号
+          list:ArticleList.results,
+          collection:collection,
+          count:ArticleList.count
+     };
   }
 
   render() {
-    const { classes } = this.props;
-    return (
-      <Layout >
-        <div className={classes.contentLayout}>
-            {
-              this.props.show.order_num
-                &&
-               <Grid item xs={false} sm={1} md={3}  className={classes.leftCon} >
-                <LeftListTRee  collection={this.props.show.collection}  id={this.props.show.id} />
-              </Grid>
-            }
+    const { classes,list,count, offset,id} = this.props;
 
-            <Grid item xs={false} sm={12} md={7} className={this.props.show.order_num? classes.rightArticle:classes.centerArticle} >
-                <h1>{this.props.show.new_title}</h1>
-                <div  className={classes.contentHtml}  dangerouslySetInnerHTML={{__html: this.props.show.content}} />
+    return (
+      <Layout getUrl='doc'  >
+         <Grid className={classes.collectionHeader} >
+              <Grid item xs={false} sm={12} md={7}  className={classes.collectionInfo} >
+              <Grid item xs={false} sm={9} md={9}  >
+                      <h1
+                      style={{
+                        borderBottom: '2px solid #ffffff',
+                        padding: '0px 0px 0px 0px',
+                        display: 'inline-block'
+                      }}
+                      >
+                          {this.props.collection.name}
+                      </h1>
+                      <p>  {this.props.collection.introduction}</p>
+              </Grid>
+              <Grid item xs={false} sm={3} md={3}   >
+                      <Avatar className={classes.collectionImg}>每周</Avatar>
+              </Grid>
+              </Grid>
+        </Grid>
+        <div className={classes.contentLayout} >
+            <Grid item xs={false} sm={12} md={7} className={classes.centerArticle} >
+              {list.map(({id,new_title,new_description,bg_imgurl }, index) => (
+
+                 <MuiLink
+                  color="inherit"
+                  noWrap
+                  key={index}
+                  variant="body2"
+                  href={`/p/${id}`}
+                  className={classes.toolbarLink}
+                >
+                    <Grid  className={classes.collectionItem}>
+                    <Typography  component="h2"  className={classes.itemH2} >
+                      {new_title}
+                    </Typography>
+                    <Typography component="p" className={classes.itemP}  >
+                      {new_description}
+                    </Typography>
+                    <Paper className={classes.imgItem}>
+                          <img
+                            src={bg_imgurl}
+                            style={{
+                              width: '100%',
+                              objectFit: 'scale-down'
+                            }}
+                          />
+                        </Paper>
+                  </Grid>
+                  </MuiLink>
+                // </Link>
+              )
+              )}
+
+                <MoreData
+                  url={`http://127.0.0.1:8000/api/articlessr/?collection=${id}`}
+                  count={count}
+                  offset={offset}
+                  // settingOffset={this.settingOffset}
+                />
             </Grid>
+
         </div>
         <style jsx global>{`
           body {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Source Han Sans CN", sans-serif;
-          }
-          h1 {
-            width:90%;
-            margin:20px auto;
-            text-align: center;
-          }
-          h2 {
-            font-size: 26px !important;
-            padding-bottom: 15px;
-            margin: 35px 0 20px !important;
-            color: coral;
-            line-height: 40px !important;
           }
           h3 {
             margin: 20px 0 !important;
@@ -108,39 +213,6 @@ class Post extends React.Component {
             width: 100%;
             margin: auto
           }
-
-          a {
-            color: #111;
-            font-size: 16px !important;
-            font-weight: bold;
-          }
-          p {
-            margin-bottom: 0px;
-            font-size: 16px;
-            color: #2D2D2F;
-            line-height: 28px;
-            margin-bottom: 28px;
-          }
-          ol {
-            padding-left: 2em;
-          }
-          li {
-            margin-bottom: 0px;
-            font-size: 16px;
-            color: #2D2D2F;
-            line-height: 28px;
-
-          }
-          blockquote {
-            margin: 0px;
-
-          }
-          blockquote  p {
-            // color: coral !important;
-            font-weight: bold;
-            font-weight: bolder;
-          }
-
         `}</style>
       </Layout>
     )

@@ -20,6 +20,11 @@ const useStyles = makeStyles(theme => ({
       width: '80px',
       // color:'#ffffff'
     },
+    theToolbarTitle:{
+      width: '80px',
+      background: '#ffffff',
+      color: '#FF7F50'
+    },
     toolbarSecondary: {
       justifyContent: 'space-between',
       overflowX: 'auto',
@@ -43,44 +48,65 @@ const sections = [
   '',
 ];
 
-export default function Header() {
+export default function Header(props) {
+  // console.log('muyoushi:',props.getUrl);
   const classes = useStyles();
   return (
     <div>
        <Toolbar className={classes.toolbar}>
           <Button size="small" styles={{color:'#ffffff'}}> logo</Button>
-          {/* <div styles={{margin:'auto',width:'300px'}}> */}
-          <Typography
-            component="h3"
-            variant="h3"
-            color="inherit"
-            align="center"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            首页
-          </Typography>
-          <Typography
-            component="h3"
-            // variant="h3"
-            color="inherit"
-            align="center"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            文档
-          </Typography>
-          <Typography
-            component="h3"
-            // variant="h5"
-            color="inherit"
-            align="center"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            专题
-          </Typography>
 
+          <MuiLink
+              color="inherit"
+              noWrap
+              variant="body2"
+              href="/"
+            >
+              <Typography
+                component="h3"
+                variant="h3"
+                color="inherit"
+                align="center"
+                noWrap
+                className={classes.toolbarTitle}
+              >
+                首页
+              </Typography>
+          </MuiLink>
+          <MuiLink
+              color="inherit"
+              noWrap
+              variant="body2"
+              href="/doc"
+            >
+            <Typography
+              component="h3"
+              color="inherit"
+              align="center"
+              noWrap
+              className={props.getUrl=== 'doc'?classes.theToolbarTitle:classes.toolbarTitle}
+            >
+              文档
+            </Typography>
+          </MuiLink>
+          <MuiLink
+              color="inherit"
+              noWrap
+              // key={section}
+              variant="body2"
+              href="/collection"
+            >
+            <Typography
+              component="h3"
+
+              align="center"
+              color="inherit"
+              noWrap
+              className={props.getUrl=== 'collection'?classes.theToolbarTitle:classes.toolbarTitle}
+            >
+              专题
+            </Typography>
+          </MuiLink>
           <IconButton>
 
           </IconButton>

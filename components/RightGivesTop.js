@@ -24,7 +24,6 @@ const styles = theme => ({
     itemH2:{
         margin:'0px 0px !important',
         fontWeight: 'bold',
-        // color:'coral',
         fontWeight: '600',
     },
     itemP:{
@@ -46,11 +45,9 @@ const styles = theme => ({
     },
     givesItem:{
         marginTop:'10px',
-        padding: '5px 0px',
-        // borderBottom: '1px solid #EDEDED',
+        padding: '10px 0px',
         [theme.breakpoints.down('sm')]: {
           padding: '0em 1em',
-          // borderBottom: '0px solid #EDEDED',
         },
     },
     toolbarLink: {
@@ -60,21 +57,7 @@ const styles = theme => ({
 
 });
 
-function getSteps() {
-    return [
-        { title: '第一篇-区块链入门' },
-        { title: '第二篇-比特币区结构' },
-        { title: '第三篇-以太坊相关' },
-        { title: '第四篇-eos' },
-        { title: '第一篇-区块链入门' },
-        { title: '第二篇-比特币区结构' },
-        { title: '第三篇-以太坊相关' },
-        { title: '第四篇-eos' },
-        { title: '第二篇-比特币区结构' },
-        { title: '第三篇-以太坊相关' },
-        { title: '第四篇-eos' },
-    ];
-}
+
 
 class RightGivesTop extends React.Component {
     constructor(props) {
@@ -116,22 +99,22 @@ class RightGivesTop extends React.Component {
                 </Typography>
                     {CollectionList.map(({id,name,introduction,created_at }, index) => (
                         <MuiLink
-                        color="inherit"
-                        noWrap
-                        key={index}
-                        href={`/collection/${id}`}
-                        variant="body2"
-                        className={classes.toolbarLink}
-                    >
-                        <Grid className={classes.givesItem}>
-                            <Typography component="h2" className={classes.itemH2} >
-                                {name}
-                            </Typography>
-                            <Typography component="p" className={classes.itemP}  >
-                                {introduction}
-                            </Typography>
-                        </Grid>
-                    </MuiLink>
+                            color="inherit"
+                            noWrap
+                            key={index}
+                            href={`/collection/${id}`}
+                            variant="body2"
+                            className={classes.toolbarLink}
+                        >
+                            <Grid className={classes.givesItem}>
+                                <Typography component="h2" className={classes.itemH2} >
+                                    {name}
+                                </Typography>
+                                <Typography component="p" className={classes.itemP}  >
+                                    {introduction}
+                                </Typography>
+                            </Grid>
+                        </MuiLink>
                     )
                 )}
             </Grid>

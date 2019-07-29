@@ -135,7 +135,7 @@ class Post extends React.Component {
     const { classes,list,count, offset,id} = this.props;
 
     return (
-      <Layout >
+      <Layout getUrl='collection' >
          <Grid className={classes.collectionHeader} >
               <Grid item xs={false} sm={12} md={7}  className={classes.collectionInfo} >
               <Grid item xs={false} sm={9} md={9}  >
