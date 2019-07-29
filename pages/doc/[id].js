@@ -23,6 +23,7 @@ const styles = theme => ({
   },
   leftCon:{
     position: 'fixed',
+    // padding: '0 2em 4em 2em',
     width: '30%',
     height:'80vh',
     overflow: 'auto',
@@ -107,6 +108,7 @@ class Post extends React.Component {
             width: 100%;
             margin: auto
           }
+
           a {
             color: #111;
             font-size: 16px !important;
@@ -151,3 +153,4 @@ Post.propTypes = {
 };
 
 export default withStyles(styles)(Post);
+// export default Post

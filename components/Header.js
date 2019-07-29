@@ -10,10 +10,15 @@ import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 const useStyles = makeStyles(theme => ({
     toolbar: {
-      borderBottom: `1px solid ${theme.palette.divider}`,
+      borderBottom: `2px solid #FF7F50`,
+      height:'50px',
+      background:'#FF7F50',
+      color:'#ffffff'
     },
     toolbarTitle: {
-      flex: 1,
+      // flex: 1,
+      width: '80px',
+      // color:'#ffffff'
     },
     toolbarSecondary: {
       justifyContent: 'space-between',
@@ -42,26 +47,48 @@ export default function Header() {
   const classes = useStyles();
   return (
     <div>
-       {/* <Toolbar className={classes.toolbar}>
-          <Button size="small">Subscribe</Button>
+       <Toolbar className={classes.toolbar}>
+          <Button size="small" styles={{color:'#ffffff'}}> logo</Button>
+          {/* <div styles={{margin:'auto',width:'300px'}}> */}
           <Typography
-            component="h2"
-            variant="h5"
+            component="h3"
+            variant="h3"
             color="inherit"
             align="center"
             noWrap
             className={classes.toolbarTitle}
           >
-            Blog
+            首页
           </Typography>
+          <Typography
+            component="h3"
+            // variant="h3"
+            color="inherit"
+            align="center"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            文档
+          </Typography>
+          <Typography
+            component="h3"
+            // variant="h5"
+            color="inherit"
+            align="center"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            专题
+          </Typography>
+
           <IconButton>
 
           </IconButton>
-          <Button variant="outlined" size="small">
-            Sign up
-          </Button>
-        </Toolbar> */}
-        <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+          {/* <Button variant="outlined" size="small">
+            登陆
+          </Button> */}
+        </Toolbar>
+        {/* <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
           {sections.map(section => (
             <MuiLink
               color="inherit"
@@ -74,7 +101,7 @@ export default function Header() {
                {section}
             </MuiLink>
           ))}
-        </Toolbar>
+        </Toolbar> */}
     </div>
   )
 }
