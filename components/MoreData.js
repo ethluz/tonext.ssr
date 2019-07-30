@@ -60,7 +60,8 @@ const styles = theme => ({
     marginBottom: '10px !important',
   },
   toolbarLink:{
-    whiteSpace:'normal !important'
+    whiteSpace:'normal !important',
+    textDecoration:'none !important'
   }
 });
 
@@ -98,14 +99,10 @@ class MoreData extends React.Component {
     }
 
     async getmoData() {
-        console.log('props.url', this.props.url);
-        console.log('props.limit', this.state.offset);
-        console.log('props.count', this.props.count);
-        console.log('到达了底部');
         let { moredata,offset } = this.state;
         // const resArticle = await fetch(`http://127.0.0.1:8000/api/collectionwitharticle/?collection=${id}&limit=${limit}`);
         const { data } = await axios.get(`${this.props.url}&&limit=3&offset=${this.state.offset}`);
-        console.log(data);
+
         moredata = moredata.concat(data.results);
         offset = offset +3;
         this.setState({
@@ -118,16 +115,7 @@ class MoreData extends React.Component {
     const { classes} = this.props;
     const { moredata } = this.state;
     return (
-      <div   >
-            <Grid className={classes.collectionItem}>
-                <Typography  component="h2"  className={classes.itemH2} >
-                    通告 | 每周以太坊，更多
-                </Typography>
-                <Typography component="p" className={classes.itemP}  >
-                新鲜出炉：阶段 0 的技术详述已冻结！现在各客户端可以全速前进开发实现了
-                </Typography>
-            </Grid>
-
+      <div >
             {moredata.map(({id,new_title,new_description,bg_imgurl }, index) => (
                 <MuiLink
                 color="inherit"

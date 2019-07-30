@@ -108,7 +108,8 @@ const styles = theme => ({
     marginBottom: '10px !important',
   },
   toolbarLink:{
-    whiteSpace:'normal !important'
+    whiteSpace:'normal !important',
+    textDecoration:'none !important'
   }
 
 });
@@ -117,8 +118,8 @@ class Post extends React.Component {
   static async getInitialProps(context) {
     const { id } = context.query;
     const limit = 3;
-    const resArticle = await fetch(`http://127.0.0.1:8000/api/articlessr/?collection=${id}&limit=${limit}`);
-    const resCollection= await fetch(`http://127.0.0.1:8000/api/collection/${id}`);
+    const resArticle = await fetch(`https://api.xuexi.one/api/articlessr/?collection=${id}&limit=${limit}`);
+    const resCollection= await fetch(`https://api.xuexi.one/api/collection/${id}`);
     const ArticleList = await resArticle.json();
     const collection = await resCollection.json();
     console.log(`Fetched show`, ArticleList);
@@ -190,7 +191,7 @@ class Post extends React.Component {
               )}
 
                 <MoreData
-                  url={`http://127.0.0.1:8000/api/articlessr/?collection=${id}`}
+                  url={`https://api.xuexi.one/api/articlessr/?collection=${id}`}
                   count={count}
                   offset={offset}
                   // settingOffset={this.settingOffset}

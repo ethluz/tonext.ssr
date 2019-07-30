@@ -97,15 +97,14 @@ const styles = theme => ({
   toolbarLink:{
     whiteSpace:'normal !important',
     flex:1,
-    display:'flex'
+    display:'flex',
+    textDecoration:'none !important'
   },
   imgItem:{
-    "width": "100px !important",
-    "height": "100px",
-    "overflow": "hidden",
+    width: "100px !important",
+    height: "100px",
+    overflow: "hidden",
     margin:'0px auto',
-    // marginTop: '10px !important',
-    // marginBottom: '10px !important',
   },
 
 });
@@ -114,7 +113,7 @@ class Collection extends React.Component {
 
   static async getInitialProps(context) {
     const { id } = context.query;
-    const resCollection = await fetch(`http://127.0.0.1:8000/api/collection/?type=2&limit=20`);
+    const resCollection = await fetch(`https://api.xuexi.one/api/collection/?type=2&limit=20`);
     const collectionList = await resCollection.json();
     return {
           collectionList:collectionList.results,

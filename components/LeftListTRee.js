@@ -71,12 +71,12 @@ class LeftListTRee extends React.Component {
   }
 
   async componentDidMount() {
-      const results = await axios.get(`http://127.0.0.1:8000/api/collectionwitharticle/?collection=${this.props.collection}&limit=50`);
+      const results = await axios.get(`https://api.xuexi.one/api/collectionwitharticle/?collection=${this.props.collection}&limit=50`);
       this.setState({
         steps:results.data.results
       });
 
-      console.log('steps',results.data.results);
+      // console.log('steps',results.data.results);
   }
 
   render() {

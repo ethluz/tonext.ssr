@@ -102,7 +102,8 @@ const styles = theme => ({
     marginBottom: '10px !important',
   },
   toolbarLink:{
-    whiteSpace:'normal !important'
+    whiteSpace:'normal !important',
+    textDecoration:'none !important'
   },
 
 
@@ -113,8 +114,8 @@ class Home extends React.Component {
   static async getInitialProps(context) {
     const { id } = context.query;
     const limit = 3;
-    const resArticle = await fetch(`http://127.0.0.1:8000/api/articlessr/?limit=${limit}`);
-    const resCollection = await fetch(`http://127.0.0.1:8000/api/collection/?type=2&limit=5`);
+    const resArticle = await fetch(`https://api.xuexi.one/api/articlessr/?limit=${limit}`);
+    const resCollection = await fetch(`https://api.xuexi.one/api/collection/?type=2&limit=5`);
     // const resCollection= await fetch(`http://127.0.0.1:8000/api/collection/${id}`);
     const ArticleList = await resArticle.json();
     const collectionList = await resCollection.json();
@@ -131,7 +132,7 @@ class Home extends React.Component {
 
   render() {
     const { classes,list,count, offset,id,collectionList} = this.props;
-    console.log('collectionList',collectionList);
+    // console.log('collectionList',collectionList);
     return (
       <Layout >
          <Grid className={classes.collectionHeader} >
@@ -169,7 +170,7 @@ class Home extends React.Component {
                 )
               )}
                 <MoreData
-                  url={`http://127.0.0.1:8000/api/articlessr/?`}
+                  url={`https://api.xuexi.one/api/articlessr/?`}
                   count={count}
                   offset={offset}
                 />

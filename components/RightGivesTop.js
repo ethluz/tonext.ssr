@@ -52,7 +52,8 @@ const styles = theme => ({
     },
     toolbarLink: {
         fontSize: '0.875rem !important',
-        whiteSpace: 'normal !important'
+        whiteSpace: 'normal !important',
+        textDecoration:'none !important'
     },
 
 });
@@ -70,7 +71,7 @@ class RightGivesTop extends React.Component {
     componentDidMount() {
         window.addEventListener("scroll", this.windowOnScroll);
         // this.setState({ offset: this.props.offset });
-        console.log('this.props.collectionList',this.props.CollectionList);
+        // console.log('this.props.collectionList',this.props.CollectionList);
     }
 
     componentWillUnmount() {
@@ -81,10 +82,10 @@ class RightGivesTop extends React.Component {
         const h = document.documentElement.scrollTop || document.body.scrollTop;
         // console.log('h:', typeof h,h);
         if(h >= 700){
-            console.log('变更css！');
+            // console.log('变更css！');
             this.setState({isTop:true});
         }else{
-            console.log('不变！');
+            // console.log('不变！');
             this.setState({isTop:false});
         }
     };

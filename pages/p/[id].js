@@ -56,9 +56,9 @@ const styles = theme => ({
 class Post extends React.Component {
   static async getInitialProps(context) {
     const { id } = context.query;
-    const res = await fetch(`http://127.0.0.1:8000/api/articlessr/${id}`);
+    const res = await fetch(`https://api.xuexi.one/api/articlessr/${id}`);
     const show = await res.json();
-    console.log(`Fetched show: ${show.title}`);
+    // console.log(`Fetched show: ${show.title}`);
     return { show };
   }
 
